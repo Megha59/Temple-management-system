@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TempleDBModelStoreContainer" CdmEntityContainer="TempleDBEntities">
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="TempleDBModel.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+          <ScalarProperty Name="EventExpence" ColumnName="EventExpence" />
+          <ScalarProperty Name="PriestID" ColumnName="PriestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lockers">
+      <EntityTypeMapping TypeName="TempleDBModel.Locker">
+        <MappingFragment StoreEntitySet="Locker">
+          <ScalarProperty Name="LockerID" ColumnName="LockerID" />
+          <ScalarProperty Name="PriestID" ColumnName="PriestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Priests">
+      <EntityTypeMapping TypeName="TempleDBModel.Priest">
+        <MappingFragment StoreEntitySet="Priest">
+          <ScalarProperty Name="PriestID" ColumnName="PriestID" />
+          <ScalarProperty Name="PriestName" ColumnName="PriestName" />
+          <ScalarProperty Name="PriestAddress" ColumnName="PriestAddress" />
+          <ScalarProperty Name="PriestPhone" ColumnName="PriestPhone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Slots">
+      <EntityTypeMapping TypeName="TempleDBModel.Slot">
+        <MappingFragment StoreEntitySet="Slots">
+          <ScalarProperty Name="SlotId" ColumnName="SlotId" />
+          <ScalarProperty Name="SlotDate" ColumnName="SlotDate" />
+          <ScalarProperty Name="SlotStartTime" ColumnName="SlotStartTime" />
+          <ScalarProperty Name="SlotEndTime" ColumnName="SlotEndTime" />
+          <ScalarProperty Name="PriestID" ColumnName="PriestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prasadams">
+      <EntityTypeMapping TypeName="TempleDBModel.Prasadam">
+        <MappingFragment StoreEntitySet="Prasadam">
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="TotalAmtSpent" ColumnName="TotalAmtSpent" />
+          <ScalarProperty Name="ExtraCharges" ColumnName="ExtraCharges" />
+          <ScalarProperty Name="ProvisionExpense" ColumnName="ProvisionExpense" />
+          <ScalarProperty Name="PrasadamDate" ColumnName="PrasadamDate" />
+          <ScalarProperty Name="PriestID" ColumnName="PriestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Weeklyexp" FunctionName="TempleDBModel.Store.Weeklyexp">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TempleDBModel.Weeklyexp_Result">
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+          <ScalarProperty Name="Column2" ColumnName="Column2" />
+          <ScalarProperty Name="Column3" ColumnName="Column3" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="HKeepingStaffs">
+      <EntityTypeMapping TypeName="TempleDBModel.HKeepingStaff">
+        <MappingFragment StoreEntitySet="HKeepingStaff">
+          <ScalarProperty Name="HSid" ColumnName="HSid" />
+          <ScalarProperty Name="Total_wage" ColumnName="Total_wage" />
+          <ScalarProperty Name="Wage_per_staff" ColumnName="Wage_per_staff" />
+          <ScalarProperty Name="No_of_Staff" ColumnName="No_of_Staff" />
+          <ScalarProperty Name="StaffDate" ColumnName="StaffDate" />
+          <ScalarProperty Name="PriestID" ColumnName="PriestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

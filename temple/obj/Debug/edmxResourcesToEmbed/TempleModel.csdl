@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TempleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EventDate" Type="DateTime" Precision="3" />
+    <Property Name="EventExpence" Type="Double" />
+    <Property Name="PriestID" Type="Int32" />
+    <NavigationProperty Name="Priest" Relationship="Self.FK__Event__PriestID__2D27B809" FromRole="Event" ToRole="Priest" />
+  </EntityType>
+  <EntityType Name="Locker">
+    <Key>
+      <PropertyRef Name="LockerID" />
+    </Key>
+    <Property Name="LockerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PriestID" Type="Int32" />
+    <NavigationProperty Name="Priest" Relationship="Self.FK__Locker__PriestID__2A4B4B5E" FromRole="Locker" ToRole="Priest" />
+  </EntityType>
+  <EntityType Name="Priest">
+    <Key>
+      <PropertyRef Name="PriestID" />
+    </Key>
+    <Property Name="PriestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PriestName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PriestAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PriestPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Events" Relationship="Self.FK__Event__PriestID__2D27B809" FromRole="Priest" ToRole="Event" />
+    <NavigationProperty Name="Lockers" Relationship="Self.FK__Locker__PriestID__2A4B4B5E" FromRole="Priest" ToRole="Locker" />
+    <NavigationProperty Name="Slots" Relationship="Self.FK__Slots__PriestID__25869641" FromRole="Priest" ToRole="Slots" />
+    <NavigationProperty Name="Prasadams" Relationship="TempleDBModel.FK__Prasadam__Priest__276EDEB3" FromRole="Priest" ToRole="Prasadam" />
+    <NavigationProperty Name="HKeepingStaffs" Relationship="TempleDBModel.FK__HKeepingS__Pries__2F10007B" FromRole="Priest" ToRole="HKeepingStaff" />
+  </EntityType>
+  <EntityType Name="Slot">
+    <Key>
+      <PropertyRef Name="SlotId" />
+    </Key>
+    <Property Name="SlotId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SlotDate" Type="DateTime" Precision="3" />
+    <Property Name="SlotStartTime" Type="Time" Precision="7" />
+    <Property Name="SlotEndTime" Type="Time" Precision="7" />
+    <Property Name="PriestID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Priest" Relationship="Self.FK__Slots__PriestID__25869641" FromRole="Slots" ToRole="Priest" />
+  </EntityType>
+  <Association Name="FK__Event__PriestID__2D27B809">
+    <End Role="Priest" Type="Self.Priest" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priest">
+        <PropertyRef Name="PriestID" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="PriestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Locker__PriestID__2A4B4B5E">
+    <End Role="Priest" Type="Self.Priest" Multiplicity="0..1" />
+    <End Role="Locker" Type="Self.Locker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priest">
+        <PropertyRef Name="PriestID" />
+      </Principal>
+      <Dependent Role="Locker">
+        <PropertyRef Name="PriestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Slots__PriestID__25869641">
+    <End Role="Priest" Type="Self.Priest" Multiplicity="1" />
+    <End Role="Slots" Type="Self.Slot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priest">
+        <PropertyRef Name="PriestID" />
+      </Principal>
+      <Dependent Role="Slots">
+        <PropertyRef Name="PriestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TempleDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Events" EntityType="Self.Event" />
+    <EntitySet Name="Lockers" EntityType="Self.Locker" />
+    <EntitySet Name="Priests" EntityType="Self.Priest" />
+    <EntitySet Name="Slots" EntityType="Self.Slot" />
+    <AssociationSet Name="FK__Event__PriestID__2D27B809" Association="Self.FK__Event__PriestID__2D27B809">
+      <End Role="Priest" EntitySet="Priests" />
+      <End Role="Event" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Locker__PriestID__2A4B4B5E" Association="Self.FK__Locker__PriestID__2A4B4B5E">
+      <End Role="Priest" EntitySet="Priests" />
+      <End Role="Locker" EntitySet="Lockers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Slots__PriestID__25869641" Association="Self.FK__Slots__PriestID__25869641">
+      <End Role="Priest" EntitySet="Priests" />
+      <End Role="Slots" EntitySet="Slots" />
+    </AssociationSet>
+    <EntitySet Name="Prasadams" EntityType="TempleDBModel.Prasadam" />
+    <AssociationSet Name="FK__Prasadam__Priest__276EDEB3" Association="TempleDBModel.FK__Prasadam__Priest__276EDEB3">
+      <End Role="Priest" EntitySet="Priests" />
+      <End Role="Prasadam" EntitySet="Prasadams" />
+    </AssociationSet>
+    <FunctionImport Name="Weeklyexp" ReturnType="Collection(TempleDBModel.Weeklyexp_Result)">
+      <Parameter Name="start" Mode="In" Type="DateTime" />
+      <Parameter Name="end" Mode="In" Type="DateTime" />
+      <Parameter Name="total" Mode="In" Type="Double" />
+    </FunctionImport>
+    <EntitySet Name="HKeepingStaffs" EntityType="TempleDBModel.HKeepingStaff" />
+    <AssociationSet Name="FK__HKeepingS__Pries__2F10007B" Association="TempleDBModel.FK__HKeepingS__Pries__2F10007B">
+      <End Role="Priest" EntitySet="Priests" />
+      <End Role="HKeepingStaff" EntitySet="HKeepingStaffs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Prasadam">
+    <Key>
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="PriestID" Type="Int32" Nullable="false" />
+    <Property Name="PrasadamDate" Type="DateTime" Precision="3" />
+    <Property Name="ProvisionExpense" Type="Double" />
+    <Property Name="ExtraCharges" Type="Double" />
+    <Property Name="TotalAmtSpent" Type="Double" />
+    <Property Name="PID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Priest" Relationship="TempleDBModel.FK__Prasadam__Priest__276EDEB3" FromRole="Prasadam" ToRole="Priest" />
+  </EntityType>
+  <Association Name="FK__Prasadam__Priest__276EDEB3">
+    <End Type="TempleDBModel.Priest" Role="Priest" Multiplicity="1" />
+    <End Type="TempleDBModel.Prasadam" Role="Prasadam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priest">
+        <PropertyRef Name="PriestID" />
+      </Principal>
+      <Dependent Role="Prasadam">
+        <PropertyRef Name="PriestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Weeklyexp_Result">
+    <Property Type="DateTime" Name="Column1" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="Column2" Nullable="true" Precision="23" />
+    <Property Type="Double" Name="Column3" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="HKeepingStaff">
+    <Key>
+      <PropertyRef Name="HSid" />
+    </Key>
+    <Property Name="PriestID" Type="Int32" Nullable="false" />
+    <Property Name="StaffDate" Type="DateTime" Precision="3" />
+    <Property Name="No_of_Staff" Type="Int32" />
+    <Property Name="Wage_per_staff" Type="Double" />
+    <Property Name="Total_wage" Type="Double" />
+    <Property Name="HSid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Priest" Relationship="TempleDBModel.FK__HKeepingS__Pries__2F10007B" FromRole="HKeepingStaff" ToRole="Priest" />
+  </EntityType>
+  <Association Name="FK__HKeepingS__Pries__2F10007B">
+    <End Type="TempleDBModel.Priest" Role="Priest" Multiplicity="1" />
+    <End Type="TempleDBModel.HKeepingStaff" Role="HKeepingStaff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Priest">
+        <PropertyRef Name="PriestID" />
+      </Principal>
+      <Dependent Role="HKeepingStaff">
+        <PropertyRef Name="PriestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
